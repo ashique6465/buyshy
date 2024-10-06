@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs"
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
-        required:[ture,"Name is required"]
+        required:[true,"Name is required"]
     },
     email:{
         type:String,
@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
     timestamps:true
 })
 
-const User = mongoose.model("User",userSchema);
 
 //Pre-save hook to hash password beforee saving to database
 userSchema.pre('save',async function(next){
@@ -59,6 +58,8 @@ userSchema.pre('save',async function(next){
 userSchema.methods.comparePassword = async function(password){
     return bcrypt.compare(password,this.password)
 }
+const User = mongoose.model("User",userSchema);
+
 
 
 export default User;
